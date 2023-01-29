@@ -53,6 +53,20 @@ public class CallController {
 		 return ResponseEntity.ok(callHandlerService.highestcallbyhour(starttime));
 	 }
 	 
+	 
+	 @GetMapping("/callnormal/")
+	 public ResponseEntity<String> longestcallbyhournormal(){
+		 return ResponseEntity.ok(callHandlerService.longestcallvolumebyhournormal());
+	 }
+	 
+	 
+	 @GetMapping("/callsnormal/")
+	 public ResponseEntity<String> heighestcallbyhournormal(){
+		 return ResponseEntity.ok(callHandlerService.highestcallbyhournormal());
+	 }
+	 
+	 
+	 
 	 @GetMapping("/week/")
 	 public ResponseEntity<String> longestcallbyweek(){
 		 return ResponseEntity.ok(callHandlerService.longestcallvolumebyweek());

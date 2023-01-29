@@ -89,6 +89,10 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 	        return callEndedResponse;
 	    }
 
+	    
+	    
+	    // USING  DATE  get data from a single day
+	    
 
 		@Override
 		public String longestcallvolumebyhour(Date starttime) throws CallCenterServiceException {
@@ -132,28 +136,10 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 			
 			
 		}
-
-
-		@Override
-		public String longestcallvolumebyweek() throws CallCenterServiceException {
-			
-			
-			List<Object[]> list=callInfoRepository.longestcallbyweek();
-			if(list==null) {
-				throw new CallCenterServiceException("Data not Found");
-			}
-			
-			Object[] data=list.get(0);
-			
-			String day=(String)data[0];
-			
-			return "Day of the week the call volume is longest is "+day;
-			
-			
-		}
-
-
-
+		
+		
+		
+		
 		@Override
 		public String highestcallbyhour(Date starttime) throws CallCenterServiceException {
 			
@@ -178,8 +164,28 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 			
 		}
 
+		
+		
+		// Using Normal get data from all data
 
 
+		@Override
+		public String longestcallvolumebyweek() throws CallCenterServiceException {
+			
+			
+			List<Object[]> list=callInfoRepository.longestcallbyweeknormal();
+			if(list==null) {
+				throw new CallCenterServiceException("Data not Found");
+			}
+			
+			Object[] data=list.get(0);
+			
+			String day=(String)data[0];
+			
+			return "Day of the week the call volume is longest is "+day;
+			
+			
+		}
 
 
 
@@ -187,7 +193,7 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 		public String heighestcallvolumebyweek() throws CallCenterServiceException {
 			
 			
-            Object data=callInfoRepository.highestcallbyweek();
+            Object data=callInfoRepository.highestcallbyweeknormal();
 			
             String day=(String)data;
             
@@ -200,6 +206,76 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 			
 			
 			
+		}
+
+
+
+
+
+
+		@Override
+		public String longestcallvolumebyhournormal() throws CallCenterServiceException {
+             List<Object[]> list=callInfoRepository.longestcallbyhournormal();
+			
+			if(list==null) {
+				throw new CallCenterServiceException("data not found");
+			}
+			 Object[] data=list.get(0);
+			Integer start=(int)data[0];
+			Integer end=(int)data[1];
+
+		
+			
+			if(start==0 && end>=0) {
+				return "Hour of the day when the calls are longest is 12-"+(end+1)+" AM";
+			}
+			else if(start<12 && end<11) {
+				return "Hour of the day when the calls are longest is "+start+" - "+(end+1)+" AM";
+			}
+			else if(start<=11 && end==11) {
+				return "Hour of the day when the calls are longest is  "+start+" AM -"+(end+1)+" PM";
+			}
+			else if(start<=11 && end<=12) {
+				return "Hour of the day when the calls are longest is  "+start+" AM -"+(end-11)+" PM";
+			}
+			else if(start==12) {
+				return "Hour of the day when the calls are longest is  "+start+" PM -"+(end-11)+" PM";
+			}
+			else if(start<=23 && end==23) {
+				return "Hour of the day when the calls are longest is  "+(start-12)+" PM-"+(end-11)+" AM";
+			}
+			else if(start<=23 && end>=0) {
+				return "Hour of the day when the calls are longest is  "+(start-12)+" PM -"+(end-11)+" AM";
+			}
+			else  {
+				return"Hour of the day when the calls are longest is  "+(start-12)+" - "+(end-11)+" PM";
+			}
+			
+		}
+
+
+
+
+
+
+		@Override
+		public String highestcallbyhournormal() throws CallCenterServiceException {
+            Object data=callInfoRepository.highestcallbyhournormal();
+			
+            Integer start=(int)data;
+			
+			if(start==0) {
+				return "Hour of the day when call volume is longest is 12-1 AM";
+			}
+			if(start>=1 && start<=11) {
+				return "Hour of the day when call volume is longest is "+start+"AM -"+(start+1)+" AM";
+			}
+			if(start==11) {
+				return "Hour of the day when the call volume is longest is "+start+"AM - "+(start+1);
+			}
+			else {
+				return"Hour of the day when the call volume is longest is "+(start-12)+"-"+(start-11)+" PM";
+			}
 		}
 
 		
