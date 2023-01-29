@@ -18,13 +18,7 @@ public interface CallHandlerService {
 	 public String longestcallvolumebyhour()throws CallCenterServiceException;
 	 
 	 
-	 public String highestcallbyhour() throws CallCenterServiceException;
-	 
-	 
 	 public String longestcallvolumebyweek() throws CallCenterServiceException;
-	 
-	 
-	 public String heighestcallvolumebyweek() throws CallCenterServiceException;
 	 
 	 
 	 public String longestcallvolumebyweekday() throws CallCenterServiceException;

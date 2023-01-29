@@ -16,23 +16,12 @@ public interface CallInfoRepository extends JpaRepository<CallInfo, Integer>{
 	public List<Object[]> longestcallbyhour();
 	
 	
-//	@Query("Select Hour(c.startedAt) as start,Count(c) as volume From CallInfo c Group by Hour(c.startedAt)Order by volume Desc")
-//	public List<Object[]> longestcallbyhour();
-	
-	
 	@Query("Select DAYNAME(c.startedAt) as start,Count(c) as volume From CallInfo c Group by DAYNAME(c.startedAt)Order by volume Desc")
 	public List<Object[]> longestcallbyweek();
 	
 	
 	@Query("Select DAYOFWEEK(c.startedAt) as start,Count(c) as volume From CallInfo c Group by DAYOFWEEK(c.startedAt)Order by volume Desc")
 	public List<Object[]> longestcallbyweekdate();
-	
-	
-	@Query("Select Hour(c.startedAt) as start From CallInfo c Order by Duration Desc LIMIT 1")
-	public Object highestcallbyhour();
-	
-	@Query("Select DAYNAME(c.startedAt) as start From CallInfo c Order by Duration Desc LIMIT 1")
-	public Object highestcallbyweek();
 	
 	
 	

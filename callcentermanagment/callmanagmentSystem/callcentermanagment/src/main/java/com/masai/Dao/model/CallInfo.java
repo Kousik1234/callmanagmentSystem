@@ -28,7 +28,7 @@ public class CallInfo {
 
     private Instant endedAt;
     
-    private Integer Duration;
+    private String Duration;
     
 
    

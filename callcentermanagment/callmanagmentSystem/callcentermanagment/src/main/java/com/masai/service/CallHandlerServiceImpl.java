@@ -64,9 +64,7 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 		 
 		 
 		 if(callInfo.getStartedAt() != null && callInfo.getEndedAt() != null) {
-	            String time=(String.format("%d", Duration.between(callInfo.getStartedAt(), callInfo.getEndedAt()).toSeconds()));
-	            int i=Integer.parseInt(time);
-	            callInfo.setDuration(i);
+	            callInfo.setDuration(String.format("%d seconds", Duration.between(callInfo.getStartedAt(), callInfo.getEndedAt()).toSeconds()));
 	        }		 
 		 
 		 
@@ -156,59 +154,6 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 			Integer day=(int)data[0];
 			
 			return "Day of the week the call volume is longest is "+day;
-			
-		}
-
-
-
-
-
-
-		@Override
-		public String highestcallbyhour() throws CallCenterServiceException {
-			
-			Object data=callInfoRepository.highestcallbyhour();
-			
-            Integer start=(int)data;
-           // start= callInfoRepository.
-			
-			if(start==0) {
-				return "Hour of the day when call volume is longest is 12-1 AM";
-			}
-			if(start>=1 && start<=11) {
-				return "Hour of the day when call volume is longest is "+start+"AM -"+(start+1)+" AM";
-			}
-			if(start==11) {
-				return "Hour of the day when the call volume is longest is "+start+"AM - "+(start+1);
-			}
-			else {
-				return"Hour of the day when the call volume is longest is "+(start-12)+"-"+(start-11)+" PM";
-			}
-			
-			
-		}
-
-
-
-
-
-
-		@Override
-		public String heighestcallvolumebyweek() throws CallCenterServiceException {
-			
-			
-            Object data=callInfoRepository.highestcallbyweek();
-			
-            String day=(String)data;
-            
-            
-			if(data==null) {
-				throw new CallCenterServiceException("Data not Found");
-			}
-			
-			return "Day of the week the call volume is longest is "+day;
-			
-			
 			
 		}
 
