@@ -28,6 +28,8 @@ public class CallInfo {
 
     private Instant endedAt;
     
+    private LocalDate hi;
+    
     private Integer Duration;
     
 

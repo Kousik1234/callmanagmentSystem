@@ -1,6 +1,8 @@
 package com.masai.Controller;
 
-import java.util.List;
+
+import java.sql.Date;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,29 +35,22 @@ public class CallController {
 	        return ResponseEntity.ok(response);
 
 	    }
-//	 
-//	   @PostMapping("/Call")
-//	    public ResponseEntity<CallResponse> Call(@Valid @RequestBody CallRequest callRequest) {
-//	        CallResponse response = callHandlerService.call(callRequest);
-//	        return ResponseEntity.ok(response);
-//
-//	    }
-//	 
+
 	
 	 @GetMapping("/endcall/{Id}")
 	    public ResponseEntity<CallEndedResponse> endCall(@PathVariable("Id") Integer Id) {
 	        return ResponseEntity.ok(callHandlerService.endCall(Id));
 	    }
 	 
-	 @GetMapping("/call/")
-	 public ResponseEntity<String> longestcallbyhour(){
-		 return ResponseEntity.ok(callHandlerService.longestcallvolumebyhour());
+	 @GetMapping("/call/{starttime}")
+	 public ResponseEntity<String> longestcallbyhour(@PathVariable("starttime") Date starttime){
+		 return ResponseEntity.ok(callHandlerService.longestcallvolumebyhour(starttime));
 	 }
 	 
 	 
-	 @GetMapping("/calls/")
-	 public ResponseEntity<String> heighestcallbyhour(){
-		 return ResponseEntity.ok(callHandlerService.highestcallbyhour());
+	 @GetMapping("/calls/{starttime}")
+	 public ResponseEntity<String> heighestcallbyhour(@PathVariable("starttime") Date starttime){
+		 return ResponseEntity.ok(callHandlerService.highestcallbyhour(starttime));
 	 }
 	 
 	 @GetMapping("/week/")
@@ -67,12 +62,6 @@ public class CallController {
 	 @GetMapping("/weekh/")
 	 public ResponseEntity<String> heighestcallbyweek(){
 		 return ResponseEntity.ok(callHandlerService.heighestcallvolumebyweek());
-	 }
-	 
-	 
-	 @GetMapping("/weekday/")
-	 public ResponseEntity<String> longestcallbyweekday(){
-		 return ResponseEntity.ok(callHandlerService.longestcallvolumebyweekday());
 	 }
 	 
 }

@@ -2,6 +2,8 @@ package com.masai.service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,19 +71,10 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 	            callInfo.setDuration(i);
 	        }		 
 		 
-		 
-		 
-//		 Date d1=
-//		 
-//		 if(callInfo.getStartedAt() != null && callInfo.getEndedAt() != null) {
-//            callInfo.setDuration((callInfo.get))-(callInfo.getEndedAt()).toSeconds());
-//		 }
-////		 
-//		 
 		 callInfoRepository.save(callInfo);
 		 
 		 return toCallEndedResponse(callInfo);
-		// return callInfo;
+	
 	}
 
 
@@ -98,29 +91,45 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 
 
 		@Override
-		public String longestcallvolumebyhour() throws CallCenterServiceException {
+		public String longestcallvolumebyhour(Date starttime) throws CallCenterServiceException {
 			// TODO Auto-generated method stub
 			
-			List<Object[]> list=callInfoRepository.longestcallbyhour();
+			List<Object[]> list=callInfoRepository.longestcallbyhour(starttime);
 			
 			if(list==null) {
 				throw new CallCenterServiceException("data not found");
 			}
 			 Object[] data=list.get(0);
 			Integer start=(int)data[0];
+			Integer end=(int)data[1];
+
+		
 			
-			if(start==0) {
-				return "Hour of the day when call volume is longest is 12-1 AM";
+			if(start==0 && end>=0) {
+				return "Hour of the day when the calls are longest is 12-"+(end+1)+" AM";
 			}
-			if(start>=1 && start<=11) {
-				return "Hour of the day when call volume is longest is "+start+"AM -"+(start+1)+" AM";
+			else if(start<12 && end<11) {
+				return "Hour of the day when the calls are longest is "+start+" - "+(end+1)+" AM";
 			}
-			if(start==11) {
-				return "Hour of the day when the call volume is longest is "+start+"AM - "+(start+1);
+			else if(start<=11 && end==11) {
+				return "Hour of the day when the calls are longest is  "+start+" AM -"+(end+1)+" PM";
 			}
-			else {
-				return"Hour of the day when the call volume is longest is "+(start-12)+"-"+(start-11)+" PM";
+			else if(start<=11 && end<=12) {
+				return "Hour of the day when the calls are longest is  "+start+" AM -"+(end-11)+" PM";
 			}
+			else if(start==12) {
+				return "Hour of the day when the calls are longest is  "+start+" PM -"+(end-11)+" PM";
+			}
+			else if(start<=23 && end==23) {
+				return "Hour of the day when the calls are longest is  "+(start-12)+" PM-"+(end-11)+" AM";
+			}
+			else if(start<=23 && end>=0) {
+				return "Hour of the day when the calls are longest is  "+(start-12)+" PM -"+(end-11)+" AM";
+			}
+			else  {
+				return"Hour of the day when the calls are longest is  "+(start-12)+" - "+(end-11)+" PM";
+			}
+			
 			
 		}
 
@@ -144,33 +153,14 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 		}
 
 
-		@Override
-		public String longestcallvolumebyweekday() throws CallCenterServiceException {
-			List<Object[]> list=callInfoRepository.longestcallbyweekdate();
-			if(list==null) {
-				throw new CallCenterServiceException("Data not Found");
-			}
-			
-			Object[] data=list.get(0);
-			
-			Integer day=(int)data[0];
-			
-			return "Day of the week the call volume is longest is "+day;
-			
-		}
-
-
-
-
-
 
 		@Override
-		public String highestcallbyhour() throws CallCenterServiceException {
+		public String highestcallbyhour(Date starttime) throws CallCenterServiceException {
 			
-			Object data=callInfoRepository.highestcallbyhour();
+			
+			Object data=callInfoRepository.highestcallbyhour(starttime);
 			
             Integer start=(int)data;
-           // start= callInfoRepository.
 			
 			if(start==0) {
 				return "Hour of the day when call volume is longest is 12-1 AM";
@@ -211,7 +201,6 @@ public class CallHandlerServiceImpl implements CallHandlerService{
 			
 			
 		}
-
 
 		
 	}
