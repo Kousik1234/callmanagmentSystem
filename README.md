@@ -56,3 +56,6 @@ spring.datasource.password=root
 
 ## snapshots
 ![image](https://github.com/Kousik1234/callmanagmentSystem/blob/main/snapshot/Screenshot%20(65).png)
+![image](https://github.com/Kousik1234/callmanagmentSystem/blob/main/snapshot/Screenshot%20(66).png)
+![image](https://github.com/Kousik1234/callmanagmentSystem/blob/main/snapshot/Screenshot%20(67).png)
+![image](https://github.com/Kousik1234/callmanagmentSystem/blob/main/snapshot/Screenshot%20(68).png)
