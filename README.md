@@ -54,5 +54,5 @@ spring.datasource.password=root
 
 
 
-## ER Diagram
-![image](https://user-images.githubusercontent.com/103938868/201588137-5c603047-820c-4038-83bc-eece7e7cda42.png)
+## snapshots
+![image](https://github.com/Kousik1234/callmanagmentSystem/blob/main/snapshot/Screenshot%20(65).png)
